@@ -32,18 +32,18 @@ to demostrate better how it works im goign to attach a diagram
 | Parameter | Type     | Example                       |
 | :-------- | :------- | :-------------------------------- |
 | `team_name`      | `string` | **Required**. FC Barcelona |
-| `get_players`      | `boolean` | **Optional**. 1 , this gets teh team with players|
+| `get_players`      | `boolean` | **Optional**. 1 , this gets the team with players|
 
 #### Get League Players
 
 ```http
-  GET /players/{league_code}?team_name={team_name}
+  GET /league/players/{league_code}?team_name={team_name}
 ```
 
 | Parameter | Type     | Example                       |
 | :-------- | :------- | :-------------------------------- |
 | `league_code`      | `string` | **Required**. FC Barcelona |
-| `team_name`      | `string` | **Optional**. Getafe%20CF , this filter te response by team name|
+| `team_name`      | `string` | **Optional**. Getafe%20CF , this filter the response by team name|
 
 
 
