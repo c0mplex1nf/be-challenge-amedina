@@ -1,0 +1,41 @@
+version: "2.1"
+
+services:
+
+  rabbitmq:
+    build: ./config/rabbitmq
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - web_app
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:15672"]
+        interval: 10s
+        timeout: 10s
+        retries: 5
+
+  web:
+      build: .
+      command: /bin/sh -c "entrypoint.sh"
+      restart: on-failure
+      volumes:
+        - .:/code
+      ports:
+        - "8000:8000"
+      networks:
+        - web_app
+      depends_on:
+        rabbitmq:
+          condition: service_healthy
+      links:
+        - rabbitmq
+      
+
+networks:
+  web_app:
+    driver: bridge
